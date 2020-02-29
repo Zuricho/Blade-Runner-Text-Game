@@ -7,6 +7,7 @@
 import random
 import nameGenerator
 import city
+import building
 
 
 
@@ -26,6 +27,7 @@ def main():
     cityName = input('Your City Name:')
     MyCity = city.cityInit(cityName)
     print(MyCity.DistrictList[0].type)
+    print(MyCity.DistrictList[0].BuildingList[1].LevelList[15].RoomList[6].num)
 
 
 
