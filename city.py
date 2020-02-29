@@ -18,13 +18,13 @@ class District:
         self.BuildingList = BuildingList
 
 
-def cityInit(cityName):
+def cityInit(cityName,randomSeed):
     MyCity = City(cityName,[])
     print('Welcome to city '+cityName+'!')
     
     for i in range(30):
         if i in range(15):
-            MyDistrict = districtInit0(i)
+            MyDistrict = districtInit0(i,randomSeed)
             MyCity.DistrictList.append(MyDistrict)
         elif i in range(15,25):
             MyCity.DistrictList.append(District(i,1,[]))
@@ -34,23 +34,23 @@ def cityInit(cityName):
     return MyCity
 
 
-def districtInit0(number):
+def districtInit0(number,randomSeed):
     MyDistrict = District(number,0,[])
     for i in range(6):
         if i in [0,1,2]:
-            MyDistrict.BuildingList.append(building.buildingInit0(MyDistrict.num*10+i))
+            MyDistrict.BuildingList.append(building.buildingInit0(MyDistrict.num*10+i,randomSeed))
         elif i in [3,4]:
-            MyDistrict.BuildingList.append(building.buildingInit1(MyDistrict.num*10+i))
+            MyDistrict.BuildingList.append(building.buildingInit1(MyDistrict.num*10+i,randomSeed))
         else:
-            MyDistrict.BuildingList.append(building.buildingInit2(MyDistrict.num*10+i))
+            MyDistrict.BuildingList.append(building.buildingInit2(MyDistrict.num*10+i,randomSeed))
     return MyDistrict
 
 
-# def districtInit1(number):
+# def districtInit1(number,randomSeed):
 
 
 
-# def districtInit2(number):
+# def districtInit2(number,randomSeed):
 
 
 

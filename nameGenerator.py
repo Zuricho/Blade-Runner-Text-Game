@@ -67,6 +67,7 @@ def type5Name():
 
 
 def nameGenerate(randomSeed=None):
+    # Usage: nameGenerate(randomSeed)
     random.seed(a=randomSeed)
     typeNum = chooseType()
     name = 'Default'
@@ -82,6 +83,5 @@ def nameGenerate(randomSeed=None):
         name = type4Name()
     elif typeNum == 5:
         name = type5Name()
-
     return name
 
