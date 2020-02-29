@@ -9,6 +9,7 @@ import nameGenerator
 import city, building, person
 import bladerunner
 import storyteller
+import operation
 
 
 def main():
@@ -31,16 +32,24 @@ def main():
     MyCity = city.cityInit(cityName,randomSeed)
 
 
-    # Myself Initialize
+    # Myself initialize
     mSelfID = bladerunner.bladerunnerInit(randomSeed+1)
     mSelf = person.locate(mSelfID,MyCity)
     mSelf.name = playerName
     storyteller.bgTeller(mSelf.name,mSelf.ID)
 
 
-    # Bladerunner Initialize
+    # Bladerunner initialize
     bRunnerID = bladerunner.bladerunnerInit(randomSeed)
     bRunner = bladerunner.bladerunnerLocate(bRunnerID,MyCity)
+
+    # Time initialize
+    time = 100
+
+
+    # Day begin
+    operation.dayBreak(time)
+
 
     # test block
     print(mSelf.name)
