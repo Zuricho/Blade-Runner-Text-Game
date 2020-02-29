@@ -6,6 +6,7 @@
 
 import random
 import nameGenerator
+import city
 
 
 
@@ -15,15 +16,18 @@ def main():
     randomSeed = input('Random seed, press ENTER to pass:')
     random.seed(a=randomSeed)
 
+
     # Player name
-    # playerName = input('Your Character Name:')
+    playerName = input('Your Character Name:')
+
 
     # City name
-    # cityName = input('Your City Name:')
+    cityName = 'unnamed city'
+    cityName = input('Your City Name:')
+    MyCity = city.cityInit(cityName)
+    print(MyCity.DistrictList[0].type)
 
-    for i in range(10):
-        name = nameGenerator.nameGenerate()
-        print(name)
+
 
 
 if __name__ == "__main__":
