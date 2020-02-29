@@ -1,2 +1,6 @@
-# Autochess_Game
-Python based autochess game/unfinished/roguelike/self-designed
+# Blade Runner Text Game
+
+**Under developing**
+
+To be continued.
+
