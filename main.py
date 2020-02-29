@@ -9,7 +9,7 @@ import nameGenerator
 import city
 import building
 import person
-
+import bladerunner
 
 
 def main():
@@ -30,6 +30,14 @@ def main():
     print(MyCity.DistrictList[0].type)
     print(MyCity.DistrictList[14].BuildingList[1].LevelList[15].RoomList[6].num)
     print(MyCity.DistrictList[14].BuildingList[1].LevelList[15].RoomList[6].PersonList[0].name)
+
+    bladerunnerID = bladerunner.bladerunnerInit(randomSeed)
+    bRunner = bladerunner.bladerunnerLocate(bladerunnerID,MyCity)
+
+    print(bRunner.name)
+
+
+
 
 
 
