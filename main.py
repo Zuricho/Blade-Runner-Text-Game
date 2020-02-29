@@ -6,16 +6,18 @@
 
 import random
 import nameGenerator
-import city
-import building
-import person
+import city, building, person
 import bladerunner
+import storyteller
 
 
 def main():
     # Random seed initialize
-    randomSeed = 20200229
-    randomSeed = int(input('Random seed, press ENTER to pass:'))
+    randomSeed = input('Random seed, press ENTER to pass:')
+    if randomSeed != '':
+        randomSeed = int(randomSeed)
+    else:
+        randomSeed = 20200229
     random.seed(a=randomSeed)
 
 
@@ -23,18 +25,33 @@ def main():
     playerName = input('Your Character Name:')
 
 
-    # City name
+    # City initiate
     cityName = 'unnamed city'
     cityName = input('Your City Name:')
     MyCity = city.cityInit(cityName,randomSeed)
-    print(MyCity.DistrictList[0].type)
-    print(MyCity.DistrictList[14].BuildingList[1].LevelList[15].RoomList[6].num)
-    print(MyCity.DistrictList[14].BuildingList[1].LevelList[15].RoomList[6].PersonList[0].name)
 
-    bladerunnerID = bladerunner.bladerunnerInit(randomSeed)
-    bRunner = bladerunner.bladerunnerLocate(bladerunnerID,MyCity)
 
-    print(bRunner.name)
+    # Myself Initialize
+    mSelfID = bladerunner.bladerunnerInit(randomSeed+1)
+    mSelf = person.locate(mSelfID,MyCity)
+    mSelf.name = playerName
+    storyteller.bgTeller(mSelf.name,mSelf.ID)
+
+
+    # Bladerunner Initialize
+    bRunnerID = bladerunner.bladerunnerInit(randomSeed)
+    bRunner = bladerunner.bladerunnerLocate(bRunnerID,MyCity)
+
+    # test block
+    print(mSelf.name)
+    mSelf.getStatus()
+
+
+    # test block
+    # print(MyCity.DistrictList[0].type)
+    # print(MyCity.DistrictList[14].BuildingList[1].LevelList[15].RoomList[6].num)
+    # print(MyCity.DistrictList[14].BuildingList[1].LevelList[15].RoomList[6].PersonList[0].name)
+
 
 
 
