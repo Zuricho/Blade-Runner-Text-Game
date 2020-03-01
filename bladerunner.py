@@ -29,7 +29,7 @@ def bladerunnerLocate(number,MyCity):
     levelNum=(number//10)%100
     roomNum=number%10
     MyCity.DistrictList[disNum].BuildingList[buildNum].LevelList[levelNum].RoomList[roomNum].PersonList[0].status=1
-    return MyCity.DistrictList[disNum].BuildingList[buildNum].LevelList[levelNum].RoomList[roomNum].PersonList[0]
+    return 0
 
 
 def findBladerunner(bladerunnerID):

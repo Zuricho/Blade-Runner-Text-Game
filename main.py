@@ -38,10 +38,12 @@ def main():
 
 
     # Myself initialize
+    '''
     mSelfID = bladerunner.bladerunnerInit(randomSeed+1)
     mSelf = person.locate(mSelfID,MyCity)
     mSelf.name = playerName
-    storyteller.bgTeller(mSelf.name,mSelf.ID)
+    '''
+    storyteller.bgTeller(playerName,143289)
 
 
     # Time and person list initialize

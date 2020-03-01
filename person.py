@@ -82,15 +82,15 @@ def jobInit(Person):
 def personIDList():
     roomIDList = []
     for i in range(60):
-        roomIDList.append(1*100+i)
+        roomIDList.append(0*100+i)
     for i in range(60):
+        roomIDList.append(1*100+i)
+    for i in range(30):
         roomIDList.append(2*100+i)
     for i in range(30):
         roomIDList.append(3*100+i)
-    for i in range(30):
-        roomIDList.append(4*100+i)
     for i in range(20):
-        roomIDList.append(5*100+i)
+        roomIDList.append(4*100+i)
 
     personIDList = []
 

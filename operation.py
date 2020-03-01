@@ -19,7 +19,7 @@ def breakfast(time,MyCity):
 def work(time,MyCity):
     time = time+20
     for i in range(15,30):
-        MyCity.DistrictList[i].infectRefresh(20200229,time)
+        MyCity.DistrictList[i].infectRefresh(20200229,time,MyCity)
 
     if time%100 == 50:
         lunch(time,MyCity)
@@ -77,14 +77,14 @@ def dayEnd(time,MyCity):
 def visit(placeNum,MyCity):
     Dist = MyCity.DistrictList[placeNum]
     print('What do you want to learn here?\n1-number of infected people here\n2-random ask one people here\nenter-skip')
-    choice1 = makeChoice(2)
+    choice1 = makeChoice(3)
     if choice1 == 1:
         if placeNum in range(15,25):
-            Dist.printWorkerList()
-            print("There are %d infected people here."%len(Dist.infectCount()))
+            Dist.printWorkerList(MyCity)
+            print("There are %d infected people here."%len(Dist.infectCount(MyCity)))
         elif placeNum in range(25,30):
-            Dist.printStudentList()
-            print("There are %d infected people here."%len(Dist.infectCount()))
+            Dist.printStudentList(MyCity)
+            print("There are %d infected people here."%len(Dist.infectCount(MyCity)))
         else:
             Dist.printHouseholdList()
             print("There are %d infected people here."%len(Dist.infectCount()))
@@ -102,6 +102,14 @@ def visit(placeNum,MyCity):
         print('He works at %d.'%AskedPerson.workplace)
         AskedPerson.getStatus()
         input('Press Enter to pass......')
+    elif choice1 == 3:
+        askedNum = int(input('ID of who you want to ask:'))
+        if placeNum in range(25,30):
+            if Dist.findStudent(askedNum) == True:
+                print('Yes he/she is here!')
+        elif placeNum in range(20,25):
+            if Dist.findWorker(askedNum) == True:
+                print('Yes he/she is here!')
     else:
         pass
 

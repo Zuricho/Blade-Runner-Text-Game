@@ -47,7 +47,7 @@ class District:
                 for Family in Floor.RoomList:
                     Household = Family.PersonList[0]
                     if Household.status != 0:
-                        infectList.append(worker.status)
+                        infectList.append(Household.status)
                     else:
                         pass
         return infectList
@@ -58,35 +58,38 @@ class Factory:
         self.num = number
         self.WorkerList = []
     
-    def addWorker(self,worker):
-        self.WorkerList.append(worker)
+    def addWorker(self,workerID):
+        self.WorkerList.append(workerID)
 
-    def printWorkerList(self,num=1000):
+    def printWorkerList(self,MyCity,num=1000):
         i=0
-        for worker in self.WorkerList:
+        for workerID in self.WorkerList:
+            worker = person.locate(workerID,MyCity)
             print(worker.name,end=',')
             i+=1
             if i >= num:
                 print('\n')
                 break
 
-    def infectCount(self):
+    def infectCount(self,MyCity):
         infectList = []
-        for worker in self.WorkerList:
+        for workerID in self.WorkerList:
+            worker = person.locate(workerID,MyCity)
             if worker.status != 0:
                 infectList.append(worker.status)
         return infectList
 
-    def infectRefresh(self,randomSeed,time):
-        INFECT_RATE = 500    # The rate is 1/this number
-        infectList = self.infectCount()
+    def infectRefresh(self,randomSeed,time,MyCity):
+        INFECT_RATE = 10000    # The rate is 1/this number
+        infectList = self.infectCount(MyCity)
         if len(infectList) != 0:
-            for worker in self.WorkerList:
+            for workerID in self.WorkerList:
+                worker = person.locate(workerID,MyCity)
                 if worker.status == 0:
                     random.seed(a=randomSeed*10000+worker.ID*100+time)
                     for source in infectList:
                         if worker.status == 0 and random.randint(1,INFECT_RATE) == 1:
-                            worker.status = source+1
+                            person.locate(workerID,MyCity).status = source+1
                         else:
                             pass
                 else:
@@ -94,41 +97,47 @@ class Factory:
         else:
             pass
         return(time)
+
+    def findWorker(self,ID):
+        return ID in self.WorkerList
 
 class School:
     def __init__(self,number):
         self.num = number
         self.StudentList = []
     
-    def addStudent(self,student):
-        self.StudentList.append(student)
+    def addStudent(self,studentID):
+        self.StudentList.append(studentID)
     
-    def printStudentList(self,num=100):
+    def printStudentList(self,MyCity,num=100):
         i=0
-        for student in self.StudentList:
+        for studentID in self.StudentList:
+            student = person.locate(studentID,MyCity)
             print(student.name,end=',')
             i+=1
             if i >= num: 
                 print('\n')
                 break
 
-    def infectCount(self):
+    def infectCount(self,MyCity):
         infectList = []
-        for student in self.StudentList:
+        for studentID in self.StudentList:
+            student = person.locate(studentID,MyCity)
             if student.status != 0:
                 infectList.append(student.status)
         return infectList
 
-    def infectRefresh(self,randomSeed,time):
-        INFECT_RATE = 200
-        infectList = self.infectCount()
+    def infectRefresh(self,randomSeed,time,MyCity):
+        INFECT_RATE = 5000
+        infectList = self.infectCount(MyCity)
         if len(infectList) != 0:
-            for student in self.StudentList:
+            for studentID in self.StudentList:
+                student = person.locate(studentID,MyCity)
                 if student.status == 0:
                     random.seed(a=randomSeed*10000+student.ID*100+time)
                     for source in infectList:
                         if student.status == 0 and random.randint(1,INFECT_RATE) == 1:
-                            student.status = source+1
+                            person.locate(studentID,MyCity).status = source+1
                         else:
                             pass
                 else:
@@ -136,6 +145,9 @@ class School:
         else:
             pass
         return(time)
+    
+    def findStudent(self,ID):
+        return ID in self.StudentList
 
 
 def cityInit(cityName,randomSeed):
@@ -160,21 +172,23 @@ def cityInit(cityName,randomSeed):
 
     # Bladerunner initialize
     bRunnerID = bladerunner.bladerunnerInit(randomSeed)
-    bRunner = bladerunner.bladerunnerLocate(bRunnerID,MyCity)
-    bRunner.status = 1
+    bladerunner.bladerunnerLocate(bRunnerID,MyCity)
     MyCity.bRunnerInit(bRunnerID)
 
     # Align their work
     personIDList = person.personIDList()
     for ID in personIDList:
         citizen = person.locate(ID,MyCity)
+        if ID == 40493:
+            print('CHECK HERE!,LISTED')
         if citizen.job == 2:
-            MyCity.DistrictList[citizen.workplace].addWorker(citizen)
+            MyCity.DistrictList[citizen.workplace].addWorker(ID)
         elif citizen.job == 4:
-            MyCity.DistrictList[citizen.workplace].addStudent(citizen)
+            MyCity.DistrictList[citizen.workplace].addStudent(ID)
+            if ID == 40493:
+                print('CHECK HERE!,ADDED')
         else:
             pass
-
     return MyCity
 
 
