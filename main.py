@@ -59,6 +59,8 @@ def main():
 
     # test block
     print('Bladerunner ID is: %d'%MyCity.bRunnerID)
+    bRunner = person.locate(MyCity.bRunnerID,MyCity)
+    print('Bladerunner Job is :',bRunner.jobName(),', work in ',bRunner.workplace)
     storyteller.endGame(playerName)
 
 

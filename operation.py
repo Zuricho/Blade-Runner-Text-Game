@@ -4,8 +4,45 @@ import bladerunner
 
 
 def dayBreak(time,MyCity):
+    time = (time//100)*100+25
     print('*************************')
     print('What do you want to do today?')
+    breakfast(time,MyCity)
+
+
+def breakfast(time,MyCity):
+    time = time+5
+    work(time,MyCity)
+    pass
+
+
+def work(time,MyCity):
+    time = time+20
+    for i in range(15,30):
+        MyCity.DistrictList[i].infectRefresh(20200229,time)
+
+    if time%100 == 50:
+        lunch(time,MyCity)
+    elif time%100 == 75:
+        dinner(time,MyCity)
+    else:
+        pass
+    pass
+
+
+def lunch(time,MyCity):
+    time = time+5
+    work(time,MyCity)
+    pass
+
+
+def dinner(time,MyCity):
+    time = time+10
+    investigate(time,MyCity)
+    pass
+
+
+def investigate(time,MyCity):
     print('1-Visit A Place')
     print('2-Work')
     print('3-Pass&Rest')
@@ -16,7 +53,7 @@ def dayBreak(time,MyCity):
         visit(placeNum,MyCity)
         dayEnd(time,MyCity)
     elif choice == 2:
-        print('You went working! Money earned!')
+        print('You continue working! Money earned!')
         dayEnd(time,MyCity)
     elif choice == 3:
         dayEnd(time,MyCity)
@@ -24,7 +61,8 @@ def dayBreak(time,MyCity):
         pass
     else:
         print('Wrong choice!')
-        dayBreak(time)
+        investigate(time,MyCity)
+    pass
 
 
 def dayEnd(time,MyCity):
@@ -33,21 +71,23 @@ def dayEnd(time,MyCity):
     print("It's your %d day in this city."%(time//100))
     time += 100
     dayBreak(time,MyCity)
-    return time
+    pass
 
 
 def visit(placeNum,MyCity):
-    District = MyCity.DistrictList[placeNum]
-    print('What do you want to learn here?\n1-number of infected people here(Some People in this place, only work in factory or school)\n2-random ask one people here\nenter-skip')
+    Dist = MyCity.DistrictList[placeNum]
+    print('What do you want to learn here?\n1-number of infected people here\n2-random ask one people here\nenter-skip')
     choice1 = makeChoice(2)
     if choice1 == 1:
-        print('%d people infected'%0)
         if placeNum in range(15,25):
-            District.printWorkerList()
+            Dist.printWorkerList()
+            print("There are %d infected people here."%len(Dist.infectCount()))
         elif placeNum in range(25,30):
-            District.printStudentList()
+            Dist.printStudentList()
+            print("There are %d infected people here."%len(Dist.infectCount()))
         else:
-            pass
+            Dist.printHouseholdList()
+            print("There are %d infected people here."%len(Dist.infectCount()))
         
     elif choice1 == 2:
         askedNum = input('ID of who you want to ask:')

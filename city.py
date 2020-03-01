@@ -22,6 +22,36 @@ class District:
         self.num = number
         self.BuildingList = BuildingList
 
+    def getHouseholdList(self):
+        householdList = []
+        for Build in self.BuildingList:
+            for Floor in Build.LevelList:
+                for Family in Floor.RoomList:
+                    householdList.append(Family.PersonList[0])
+
+    def printHouseholdList(self,num=1000):
+        i=0
+        for Household in self.getHouseholdList():
+            print(Household.name,end=',')
+            i+=1
+            if i >= num:
+                print('\n')
+                break
+        print('\n')
+
+
+    def infectCount(self):
+        infectList = []
+        for Build in self.BuildingList:
+            for Floor in Build.LevelList:
+                for Family in Floor.RoomList:
+                    Household = Family.PersonList[0]
+                    if Household.status != 0:
+                        infectList.append(worker.status)
+                    else:
+                        pass
+        return infectList
+
 
 class Factory:
     def __init__(self,number):
@@ -31,7 +61,7 @@ class Factory:
     def addWorker(self,worker):
         self.WorkerList.append(worker)
 
-    def printWorkerList(self,num=10):
+    def printWorkerList(self,num=1000):
         i=0
         for worker in self.WorkerList:
             print(worker.name,end=',')
@@ -40,6 +70,30 @@ class Factory:
                 print('\n')
                 break
 
+    def infectCount(self):
+        infectList = []
+        for worker in self.WorkerList:
+            if worker.status != 0:
+                infectList.append(worker.status)
+        return infectList
+
+    def infectRefresh(self,randomSeed,time):
+        INFECT_RATE = 500    # The rate is 1/this number
+        infectList = self.infectCount()
+        if len(infectList) != 0:
+            for worker in self.WorkerList:
+                if worker.status == 0:
+                    random.seed(a=randomSeed*10000+worker.ID*100+time)
+                    for source in infectList:
+                        if worker.status == 0 and random.randint(1,INFECT_RATE) == 1:
+                            worker.status = source+1
+                        else:
+                            pass
+                else:
+                    pass
+        else:
+            pass
+        return(time)
 
 class School:
     def __init__(self,number):
@@ -49,7 +103,7 @@ class School:
     def addStudent(self,student):
         self.StudentList.append(student)
     
-    def printStudentList(self,num=10):
+    def printStudentList(self,num=100):
         i=0
         for student in self.StudentList:
             print(student.name,end=',')
@@ -57,6 +111,31 @@ class School:
             if i >= num: 
                 print('\n')
                 break
+
+    def infectCount(self):
+        infectList = []
+        for student in self.StudentList:
+            if student.status != 0:
+                infectList.append(student.status)
+        return infectList
+
+    def infectRefresh(self,randomSeed,time):
+        INFECT_RATE = 200
+        infectList = self.infectCount()
+        if len(infectList) != 0:
+            for student in self.StudentList:
+                if student.status == 0:
+                    random.seed(a=randomSeed*10000+student.ID*100+time)
+                    for source in infectList:
+                        if student.status == 0 and random.randint(1,INFECT_RATE) == 1:
+                            student.status = source+1
+                        else:
+                            pass
+                else:
+                    pass
+        else:
+            pass
+        return(time)
 
 
 def cityInit(cityName,randomSeed):
@@ -79,10 +158,10 @@ def cityInit(cityName,randomSeed):
         MyDistrict = districtInit2(i,randomSeed)
         MyCity.DistrictList.append(MyDistrict)
 
-
     # Bladerunner initialize
     bRunnerID = bladerunner.bladerunnerInit(randomSeed)
     bRunner = bladerunner.bladerunnerLocate(bRunnerID,MyCity)
+    bRunner.status = 1
     MyCity.bRunnerInit(bRunnerID)
 
     # Align their work
