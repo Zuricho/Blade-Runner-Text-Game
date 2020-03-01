@@ -1,5 +1,6 @@
 import random
 import person
+import bladerunner
 
 
 def dayBreak(time,MyCity):
@@ -8,7 +9,8 @@ def dayBreak(time,MyCity):
     print('1-Visit A Place')
     print('2-Work')
     print('3-Pass&Rest')
-    choice = makeChoice(3)
+    print('4-End Game and Report Bladerunner')
+    choice = makeChoice(4)
     if choice == 1:
         placeNum = int(input('Where do you want to visit, use place number:'))
         visit(placeNum,MyCity)
@@ -18,6 +20,8 @@ def dayBreak(time,MyCity):
         dayEnd(time,MyCity)
     elif choice == 3:
         dayEnd(time,MyCity)
+    elif choice ==4:
+        pass
     else:
         print('Wrong choice!')
         dayBreak(time)
@@ -44,6 +48,7 @@ def visit(placeNum,MyCity):
         print('His job is %s.'%AskedPerson.jobName())
         print('He works at %d.'%AskedPerson.workplace)
         AskedPerson.getStatus()
+        input('Press Enter to pass......')
     else:
         pass
 

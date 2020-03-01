@@ -29,7 +29,6 @@ def main():
     # City initiate
     cityName = 'unnamed city'
     cityName = input('Your City Name:')
-    print('loading...')
     MyCity = city.cityInit(cityName,randomSeed)
 
 
@@ -40,23 +39,23 @@ def main():
     storyteller.bgTeller(mSelf.name,mSelf.ID)
 
 
-    # Bladerunner initialize
-    bRunnerID = bladerunner.bladerunnerInit(randomSeed)
-    bRunner = bladerunner.bladerunnerLocate(bRunnerID,MyCity)
-
-
     # Time and person list initialize
     personIDList = person.personIDList()
     time = 100
 
 
-    # Day begin
+    # Day loop begin
     operation.dayBreak(time,MyCity)
 
 
+    # Day loop end
+    bladerunner.findBladerunner(MyCity.bRunnerID)
+
+
     # test block
-    print(mSelf.name)
-    mSelf.getStatus()
+    print('Bladerunner ID is: %d'%MyCity.bRunnerID)
+    print('Thank you for playing my game! %s'%mSelf.name)
+    print('Author: Züricho\nGithub: Zuricho')
 
 
     # test block

@@ -1,5 +1,6 @@
 import random
 import building
+import bladerunner
 
 
 class City:
@@ -7,6 +8,10 @@ class City:
     def __init__(self,name,DistrictList):
         self.name = name
         self.DistrictList = DistrictList
+        self.bRunnerID = None
+    
+    def bRunnerInit(self,bRunnerID):
+        self.bRunnerID = bRunnerID
 
 
 # District type: 0 for living spaces(15), 1 for factory(10), 2 for school(5)
@@ -21,6 +26,7 @@ class District:
 def cityInit(cityName,randomSeed):
     MyCity = City(cityName,[])
     print('Welcome to city '+cityName+'!')
+    print('Loading......')
     
     for i in range(30):
         if i in range(15):
@@ -30,7 +36,12 @@ def cityInit(cityName,randomSeed):
             MyCity.DistrictList.append(District(i,1,[]))
         else:
             MyCity.DistrictList.append(District(i,2,[]))
-    
+
+    # Bladerunner initialize
+    bRunnerID = bladerunner.bladerunnerInit(randomSeed)
+    bRunner = bladerunner.bladerunnerLocate(bRunnerID,MyCity)
+    MyCity.bRunnerInit(bRunnerID)
+
     return MyCity
 
 

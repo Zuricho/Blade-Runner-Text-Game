@@ -32,3 +32,15 @@ def bladerunnerLocate(number,MyCity):
     return MyCity.DistrictList[disNum].BuildingList[buildNum].LevelList[levelNum].RoomList[roomNum].PersonList[0]
 
 
+def findBladerunner(bladerunnerID):
+    choice = input("Report bladerunner's ID:")
+    findID = int(input('Input bladerunner ID here:'))
+    if findID == bladerunnerID:
+        print('YOU ARE RIGHT!\nCONGRADULATIONS!')
+    else:
+        choice2 = input('Sorry you are wrong. Input Q to quit game.')
+        if choice2 == 'Q':
+            pass
+        else:
+            findBladerunner(bladerunnerID)
+
