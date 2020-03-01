@@ -83,5 +83,5 @@ def nameGenerate(randomSeed=None):
         name = type4Name()
     elif typeNum == 5:
         name = type5Name()
-    return name
+    return name.capitalize()
 
