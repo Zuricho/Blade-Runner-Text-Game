@@ -28,7 +28,20 @@ class Person:
             return 3
         else:
             return 2
-    
+
+    def districtNum(self):
+        return self.ID//10000
+
+    def buildingNum(self):
+        return (self.ID//1000)%10
+
+    def roomNum(self):
+        return self.ID%1000
+
+    def jobName(self):
+        jobDict = {0:'no job',1:'home worker',2:'factory worker',3:'chef or waiter',4:'student'}
+        return jobDict[self.job]
+
 
 def personInit(number,randomSeed):
     name = nameGenerator.nameGenerate(randomSeed*1000000+number)
@@ -63,3 +76,31 @@ def jobInit(Person):
         Person.job = 4
         Person.workplace = random.randint(25,29)
     return 0
+
+
+def personIDList():
+    roomIDList = []
+    for i in range(60):
+        roomIDList.append(1*100+i)
+    for i in range(60):
+        roomIDList.append(2*100+i)
+    for i in range(30):
+        roomIDList.append(3*100+i)
+    for i in range(30):
+        roomIDList.append(4*100+i)
+    for i in range(20):
+        roomIDList.append(5*100+i)
+
+    personIDList = []
+
+    for j in range(15):
+        districtIDList=[]
+        for item in roomIDList:
+            for i in range(10):
+                districtIDList.append(item*10+i)
+        for item in districtIDList:
+            personIDList.append(j*10000+item)
+
+    return personIDList
+
+

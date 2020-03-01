@@ -29,6 +29,7 @@ def main():
     # City initiate
     cityName = 'unnamed city'
     cityName = input('Your City Name:')
+    print('loading...')
     MyCity = city.cityInit(cityName,randomSeed)
 
 
@@ -43,12 +44,14 @@ def main():
     bRunnerID = bladerunner.bladerunnerInit(randomSeed)
     bRunner = bladerunner.bladerunnerLocate(bRunnerID,MyCity)
 
-    # Time initialize
+
+    # Time and person list initialize
+    personIDList = person.personIDList()
     time = 100
 
 
     # Day begin
-    operation.dayBreak(time)
+    operation.dayBreak(time,MyCity)
 
 
     # test block
