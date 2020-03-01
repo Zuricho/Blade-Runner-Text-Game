@@ -3,46 +3,50 @@ import person
 import bladerunner
 
 
-def dayBreak(time,MyCity):
+def dayBreak(time,MyCity,randomSeed):
     time = (time//100)*100+25
     print('*************************')
     print('What do you want to do today?')
-    breakfast(time,MyCity)
+    breakfast(time,MyCity,randomSeed)
 
 
-def breakfast(time,MyCity):
+def breakfast(time,MyCity,randomSeed):
     time = time+5
-    work(time,MyCity)
+    for i in range(15):
+        MyCity.DistrictList[i].infectRefresh(randomSeed,time)
+    work(time,MyCity,randomSeed)
     pass
 
 
-def work(time,MyCity):
+def work(time,MyCity,randomSeed):
     time = time+20
     for i in range(15,30):
-        MyCity.DistrictList[i].infectRefresh(20200229,time,MyCity)
+        MyCity.DistrictList[i].infectRefresh(randomSeed,time,MyCity)
 
     if time%100 == 50:
-        lunch(time,MyCity)
+        lunch(time,MyCity,randomSeed)
     elif time%100 == 75:
-        dinner(time,MyCity)
+        dinner(time,MyCity,randomSeed)
     else:
         pass
     pass
 
 
-def lunch(time,MyCity):
+def lunch(time,MyCity,randomSeed):
     time = time+5
-    work(time,MyCity)
+    work(time,MyCity,randomSeed)
     pass
 
 
-def dinner(time,MyCity):
+def dinner(time,MyCity,randomSeed):
     time = time+10
-    investigate(time,MyCity)
+    for i in range(15):
+        MyCity.DistrictList[i].infectRefresh(randomSeed,time)
+    investigate(time,MyCity,randomSeed)
     pass
 
 
-def investigate(time,MyCity):
+def investigate(time,MyCity,randomSeed):
     print('1-Visit A Place')
     print('2-Work')
     print('3-Pass&Rest')
@@ -51,26 +55,26 @@ def investigate(time,MyCity):
     if choice == 1:
         placeNum = int(input('Where do you want to visit, use place number(0 to 29):'))
         visit(placeNum,MyCity)
-        dayEnd(time,MyCity)
+        dayEnd(time,MyCity,randomSeed)
     elif choice == 2:
         print('You continue working! Money earned!')
-        dayEnd(time,MyCity)
+        dayEnd(time,MyCity,randomSeed)
     elif choice == 3:
-        dayEnd(time,MyCity)
+        dayEnd(time,MyCity,randomSeed)
     elif choice ==4:
         pass
     else:
         print('Wrong choice!')
-        investigate(time,MyCity)
+        investigate(time,MyCity,randomSeed)
     pass
 
 
-def dayEnd(time,MyCity):
+def dayEnd(time,MyCity,randomSeed):
     print('*************************')
     print("It's the end of your day!")
     print("It's your %d day in this city."%(time//100))
     time += 100
-    dayBreak(time,MyCity)
+    dayBreak(time,MyCity,randomSeed)
     pass
 
 

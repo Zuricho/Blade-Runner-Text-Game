@@ -52,7 +52,7 @@ def main():
 
 
     # Day loop begin
-    operation.dayBreak(time,MyCity)
+    operation.dayBreak(time,MyCity,randomSeed)
 
 
     # Day loop end

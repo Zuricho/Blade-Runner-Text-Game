@@ -28,6 +28,7 @@ class District:
             for Floor in Build.LevelList:
                 for Family in Floor.RoomList:
                     householdList.append(Family.PersonList[0])
+        return householdList
 
     def printHouseholdList(self,num=1000):
         i=0
@@ -51,6 +52,27 @@ class District:
                     else:
                         pass
         return infectList
+
+    def infectRefresh(self,randomSeed,time):
+        INFECT_RATE = 30000    # The rate is 1/this number
+        infectList = self.infectCount()
+        if len(infectList) != 0:
+            for Build in self.BuildingList:
+                for Floor in Build.LevelList:
+                    for Family in Floor.RoomList:
+                        Household = Family.PersonList[0]
+                        if Household.status == 0:
+                            random.seed(a=randomSeed*10000+Household.ID*100+time)
+                            for source in infectList:
+                                if Household.status == 0 and random.randint(1,INFECT_RATE) == 1:
+                                    Household.status = source+1
+                                else:
+                                    pass
+                        else:
+                            pass
+        else:
+            pass
+        return 0 
 
 
 class Factory:
@@ -96,7 +118,7 @@ class Factory:
                     pass
         else:
             pass
-        return(time)
+        return 0
 
     def findWorker(self,ID):
         return ID in self.WorkerList
@@ -144,7 +166,7 @@ class School:
                     pass
         else:
             pass
-        return(time)
+        return 0
     
     def findStudent(self,ID):
         return ID in self.StudentList
@@ -179,14 +201,10 @@ def cityInit(cityName,randomSeed):
     personIDList = person.personIDList()
     for ID in personIDList:
         citizen = person.locate(ID,MyCity)
-        if ID == 40493:
-            print('CHECK HERE!,LISTED')
         if citizen.job == 2:
             MyCity.DistrictList[citizen.workplace].addWorker(ID)
         elif citizen.job == 4:
             MyCity.DistrictList[citizen.workplace].addStudent(ID)
-            if ID == 40493:
-                print('CHECK HERE!,ADDED')
         else:
             pass
     return MyCity
