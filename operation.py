@@ -43,6 +43,7 @@ def visit(placeNum,MyCity):
         print('You asked %s.'%AskedPerson.name)
         print('His job is %s.'%AskedPerson.jobName())
         print('He works at %d.'%AskedPerson.workplace)
+        AskedPerson.getStatus()
     else:
         pass
 

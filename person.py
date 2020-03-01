@@ -14,9 +14,10 @@ class Person:
 
     def getStatus(self):
         if self.status == 0:
-            print('you are healthy!')
+            print('%s is healthy!'%self.name)
         else:
-            print('you are infected!')
+            print('%s is infected!'%self.name)
+            print('%s is the %d generation.'%(self.name,self.status))
 
     def location(self,time):
         # Location: 0-Home; 1-WorkPlace; 2-HomeRestaurant; 3-WorkRestaurant
