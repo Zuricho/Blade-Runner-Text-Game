@@ -1,7 +1,5 @@
 # Blade Runner Text Game
 
-[TOC]
-
 **Under developing**
 
 You're in a city. Your task is to find the 'BLADERUNNER', who start the spread of virus in the city.
