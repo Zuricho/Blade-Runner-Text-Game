@@ -24,11 +24,16 @@ def main():
 
     # Player name
     playerName = input('Your Character Name:')
+    if playerName == '':
+        playerName = nameGenerator.nameGenerate()
+        print('Your name is %s!'%playerName)
 
 
     # City initiate
     cityName = 'unnamed city'
     cityName = input('Your City Name:')
+    if cityName == '':
+        cityName = nameGenerator.nameGenerate()
     MyCity = city.cityInit(cityName,randomSeed)
 
 
@@ -54,15 +59,7 @@ def main():
 
     # test block
     print('Bladerunner ID is: %d'%MyCity.bRunnerID)
-    print('Thank you for playing my game! %s'%mSelf.name)
-    print('Author: Züricho\nGithub: Zuricho')
-
-
-    # test block
-    # print(MyCity.DistrictList[0].type)
-    # print(MyCity.DistrictList[14].BuildingList[1].LevelList[15].RoomList[6].num)
-    # print(MyCity.DistrictList[14].BuildingList[1].LevelList[15].RoomList[6].PersonList[0].name)
-
+    storyteller.endGame(playerName)
 
 
 

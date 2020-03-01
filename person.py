@@ -7,7 +7,7 @@ class Person:
         self.ID = number
         self.name = name
         self.job = job
-        # Job description should refer to readme
+        # Jobs: 1-HomeWorker; 2-Factory 3-Chef; 4-Student; 0-nojob
         self.status = status
         # status: 0-healthy, 1-first generation infected, 2-seconde generation infected
         self.workplace = None

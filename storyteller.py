@@ -16,3 +16,8 @@ def bgTeller(name,ID):
     time.sleep(1)
     print("Begin your search!")
     time.sleep(1)
+
+
+def endGame(playerName):
+    print('Thank you for playing my game! %s'%playerName)
+    print('Author: Züricho\nGithub: Zuricho')

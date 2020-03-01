@@ -33,7 +33,6 @@ def bladerunnerLocate(number,MyCity):
 
 
 def findBladerunner(bladerunnerID):
-    choice = input("Report bladerunner's ID:")
     findID = int(input('Input bladerunner ID here:'))
     if findID == bladerunnerID:
         print('YOU ARE RIGHT!\nCONGRADULATIONS!')
