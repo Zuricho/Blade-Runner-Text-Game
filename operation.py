@@ -7,43 +7,33 @@ def dayBreak(time,MyCity,randomSeed):
     time = (time//100)*100+25
     print('*************************')
     print('What do you want to do today?')
-    breakfast(time,MyCity,randomSeed)
+    return time
 
 
 def breakfast(time,MyCity,randomSeed):
     time = time+5
     for i in range(15):
         MyCity.DistrictList[i].infectRefresh(randomSeed,time)
-    work(time,MyCity,randomSeed)
-    pass
+    return time
 
 
 def work(time,MyCity,randomSeed):
     time = time+20
     for i in range(15,30):
         MyCity.DistrictList[i].infectRefresh(randomSeed,time,MyCity)
-
-    if time%100 == 50:
-        lunch(time,MyCity,randomSeed)
-    elif time%100 == 75:
-        dinner(time,MyCity,randomSeed)
-    else:
-        pass
-    pass
+    return time
 
 
 def lunch(time,MyCity,randomSeed):
     time = time+5
-    work(time,MyCity,randomSeed)
-    pass
+    return time
 
 
 def dinner(time,MyCity,randomSeed):
     time = time+10
     for i in range(15):
         MyCity.DistrictList[i].infectRefresh(randomSeed,time)
-    investigate(time,MyCity,randomSeed)
-    pass
+    return time
 
 
 def investigate(time,MyCity,randomSeed):
@@ -55,18 +45,16 @@ def investigate(time,MyCity,randomSeed):
     if choice == 1:
         placeNum = int(input('Where do you want to visit, use place number(0 to 29):'))
         visit(placeNum,MyCity)
-        dayEnd(time,MyCity,randomSeed)
     elif choice == 2:
         print('You continue working! Money earned!')
-        dayEnd(time,MyCity,randomSeed)
     elif choice == 3:
-        dayEnd(time,MyCity,randomSeed)
-    elif choice ==4:
-        pass
+        print('You did nothing!')
+    elif choice == 4:
+        time = None
     else:
         print('Wrong choice!')
         investigate(time,MyCity,randomSeed)
-    pass
+    return time
 
 
 def dayEnd(time,MyCity,randomSeed):
@@ -74,8 +62,7 @@ def dayEnd(time,MyCity,randomSeed):
     print("It's the end of your day!")
     print("It's your %d day in this city."%(time//100))
     time += 100
-    dayBreak(time,MyCity,randomSeed)
-    pass
+    return time
 
 
 def visit(placeNum,MyCity):

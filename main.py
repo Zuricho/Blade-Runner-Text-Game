@@ -51,11 +51,20 @@ def main():
     time = 100
 
 
-    # Day loop begin
-    operation.dayBreak(time,MyCity,randomSeed)
+    # Main loop
+    while time != None:
+        time = operation.dayBreak(time,MyCity,randomSeed)
+        time = operation.breakfast(time,MyCity,randomSeed)
+        time = operation.work(time,MyCity,randomSeed)
+        time = operation.lunch(time,MyCity,randomSeed)
+        time = operation.work(time,MyCity,randomSeed)
+        time = operation.dinner(time,MyCity,randomSeed)
+        time = operation.investigate(time,MyCity,randomSeed)
+        if time != None:
+            time = operation.dayEnd(time,MyCity,randomSeed)
 
 
-    # Day loop end
+    # Main loop end
     bladerunner.findBladerunner(MyCity.bRunnerID)
 
 

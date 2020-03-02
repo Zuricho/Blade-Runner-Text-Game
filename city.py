@@ -60,12 +60,12 @@ class District:
             for Build in self.BuildingList:
                 for Floor in Build.LevelList:
                     for Family in Floor.RoomList:
-                        Household = Family.PersonList[0]
-                        if Household.status == 0:
-                            random.seed(a=randomSeed*10000+Household.ID*100+time)
+                        Family.PersonList[0] = Family.PersonList[0]
+                        if Family.PersonList[0].status == 0:
+                            random.seed(a=randomSeed*10000+Family.PersonList[0].ID*100+time)
                             for source in infectList:
-                                if Household.status == 0 and random.randint(1,INFECT_RATE) == 1:
-                                    Household.status = source+1
+                                if Family.PersonList[0].status == 0 and random.randint(1,INFECT_RATE) == 1:
+                                    Family.PersonList[0].status = source+1
                                 else:
                                     pass
                         else:
@@ -158,7 +158,7 @@ class School:
                 if student.status == 0:
                     random.seed(a=randomSeed*10000+student.ID*100+time)
                     for source in infectList:
-                        if student.status == 0 and random.randint(1,INFECT_RATE) == 1:
+                        if person.locate(studentID,MyCity).status == 0 and random.randint(1,INFECT_RATE) == 1:
                             person.locate(studentID,MyCity).status = source+1
                         else:
                             pass
