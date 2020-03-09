@@ -2,6 +2,7 @@ import random
 import building
 import bladerunner
 import person
+import nameGenerator
 
 
 class City:
@@ -172,64 +173,32 @@ class School:
         return ID in self.StudentList
 
 
-def cityInit(cityName,randomSeed):
-    MyCity = City(cityName,[])
-    print('Welcome to city '+cityName+'!')
-    print('Loading......')
-    
-    # Living place and all people
-    for i in range(15):
-        MyDistrict = districtInit0(i,randomSeed)
-        MyCity.DistrictList.append(MyDistrict)
-
-    # Factory
-    for i in range(15,25):
-        MyDistrict = districtInit1(i,randomSeed)
-        MyCity.DistrictList.append(MyDistrict)
-
-    # School
-    for i in range(25,30):
-        MyDistrict = districtInit2(i,randomSeed)
-        MyCity.DistrictList.append(MyDistrict)
-
-    # Bladerunner initialize
-    bRunnerID = bladerunner.bladerunnerInit(randomSeed)
-    bladerunner.bladerunnerLocate(bRunnerID,MyCity)
-    MyCity.bRunnerInit(bRunnerID)
-
-    # Align their work
-    personIDList = person.personIDList()
-    for ID in personIDList:
-        citizen = person.locate(ID,MyCity)
-        if citizen.job == 2:
-            MyCity.DistrictList[citizen.workplace].addWorker(ID)
-        elif citizen.job == 4:
-            MyCity.DistrictList[citizen.workplace].addStudent(ID)
-        else:
-            pass
+def cityInit(randomSeed):
+    MyCity = []
+    for i in range(30000):
+        personList = [i]
+        personList.append(nameGenerator.nameGenerate(randomSeed*100000+i))   # Give him/her a name
+        personList.append(num2ID(i))  # Living Place
+        personList += person.jobInit(randomSeed,i)     # Job and Working place
+        personList.append(0)  # status
+        MyCity.append(personList)
     return MyCity
 
 
-def districtInit0(number,randomSeed):
-    MyDistrict = District(number,[])
-    for i in range(6):
-        if i in [0,1,2]:
-            MyDistrict.BuildingList.append(building.buildingInit0(MyDistrict.num*10+i,randomSeed))
-        elif i in [3,4]:
-            MyDistrict.BuildingList.append(building.buildingInit1(MyDistrict.num*10+i,randomSeed))
-        else:
-            MyDistrict.BuildingList.append(building.buildingInit2(MyDistrict.num*10+i,randomSeed))
-    return MyDistrict
+def num2ID(num):
+    ID = (num//2000)*10000
+    Buildin = num%2000
+    if Buildin//600 in [0,1]:
+        # tall builidngs with 60 floor
+        ID += (Buildin//600)*1000+Buildin%600
+    elif Buildin//300 in [4,5]:
+        # mid buinding with 30 floor
+        ID += ((Buildin//300)*1000)-2000+Buildin%300
+    else:
+        # low building with 20 floor
+        ID += 4000+num%200
+    return ID
 
-
-def districtInit1(number,randomSeed):
-    MyDistrict = Factory(number)
-    return MyDistrict
-
-
-def districtInit2(number,randomSeed):
-    MyDistrict = School(number)
-    return MyDistrict
 
 
 

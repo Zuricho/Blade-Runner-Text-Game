@@ -44,12 +44,6 @@ class Person:
         return jobDict[self.job]
 
 
-def personInit(number,randomSeed):
-    name = nameGenerator.nameGenerate(randomSeed*1000000+number)
-    MyPerson = Person(number,name,0,0)
-    jobInit(MyPerson)
-    return MyPerson
-
 
 def locate(number,MyCity):
     disNum=number//10000
@@ -59,24 +53,18 @@ def locate(number,MyCity):
     return MyCity.DistrictList[disNum].BuildingList[buildNum].LevelList[levelNum].RoomList[roomNum].PersonList[0]
 
 
-def jobInit(Person):
+def jobInit(randomSeed,num):
     # Jobs: 1-HomeWorker; 2-Factory 3-Chef; 4-Student; 0-nojob
-    IDnum = Person.ID
-    random.seed(IDnum)
+    random.seed(randomSeed*100000+num)
     jobnum = random.randint(1,30)
     if jobnum in range(1,11):
-        Person.job = 1
-        Person.workplace = Person.ID//10000
+        return [1,num//2000]
     elif jobnum in range(11,23):
-        Person.job = 2
-        Person.workplace = random.randint(15,24)
+        return [2,random.randint(15,24)]
     elif jobnum in range(23,26):
-        Person.job = 3
-        Person.workplace = random.randint(0,29)
+        return [3,random.randint(0,29)]
     else:
-        Person.job = 4
-        Person.workplace = random.randint(25,29)
-    return 0
+        return [4,random.randint(25,29)]
 
 
 def personIDList():

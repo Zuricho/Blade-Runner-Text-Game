@@ -34,15 +34,20 @@ def main():
     cityName = input('Your City Name:')
     if cityName == '':
         cityName = nameGenerator.nameGenerate()
-    MyCity = city.cityInit(cityName,randomSeed)
+    MyCity = city.cityInit(randomSeed)
 
 
+    # Temp file and form initiate
+    GeneralFile = open("./temp/generalInformation.csv",'w+')
+    GeneralFile.write("CITY_NAME: "+cityName+'\n')
+    GeneralFile.write("PLAYER_NAME: "+playerName+'\n')
+    CityFile = open("./temp/cityInformation.csv",'w+')
+    CityFile.write("#ID,NAME,LIVELOC,JOB,WORKLOC,STATE\n")
+    
+    operation.saveCity(CityFile,MyCity)
+
+'''
     # Myself initialize
-    '''
-    mSelfID = bladerunner.bladerunnerInit(randomSeed+1)
-    mSelf = person.locate(mSelfID,MyCity)
-    mSelf.name = playerName
-    '''
     storyteller.bgTeller(playerName,143289)
 
 
@@ -73,7 +78,7 @@ def main():
     bRunner = person.locate(MyCity.bRunnerID,MyCity)
     print('Bladerunner Job is :',bRunner.jobName(),', work in ',bRunner.workplace)
     storyteller.endGame(playerName)
-
+'''
 
 
 if __name__ == "__main__":

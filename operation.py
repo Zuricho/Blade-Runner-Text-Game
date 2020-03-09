@@ -113,4 +113,7 @@ def makeChoice(num):
         return 0
 
 
+def saveCity(cityFile,myCity):
+    for item in myCity:
+        cityFile.write(str(item)[1:-1].replace("'","")+'\n')
     
